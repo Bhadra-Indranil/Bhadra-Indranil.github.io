@@ -221,16 +221,68 @@
         margin-top: 2rem;
       }
 
-      .education-card {
+      .education-card,
+      .research-card,
+      .project-card {
         background: white;
         padding: 2rem;
         border-radius: 10px;
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        transition: transform var(--transition-speed);
+        transition: all 0.3s ease-out;
+        position: relative;
+        overflow: hidden;
+        z-index: 1;
+        cursor: pointer;
       }
 
-      .education-card:hover {
+      .education-card::before,
+      .research-card::before,
+      .project-card::before {
+        content: "";
+        position: absolute;
+        width: 0;
+        height: 0;
+        background: var(--gradient);
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+        transition: width 0.6s ease-out, height 0.6s ease-out;
+        z-index: -1;
+        opacity: 0;
+        pointer-events: none;
+        left: var(--x, 50%);
+        top: var(--y, 50%);
+      }
+
+      .education-card:hover::before,
+      .research-card:hover::before,
+      .project-card:hover::before {
+        width: 300%;
+        height: 300%;
+        opacity: 1;
+      }
+
+      .education-card:hover,
+      .research-card:hover,
+      .project-card:hover {
         transform: translateY(-5px);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+      }
+
+      .education-card:hover h3,
+      .research-card:hover h3,
+      .project-card:hover h3,
+      .education-card:hover p,
+      .research-card:hover p,
+      .project-card:hover p {
+        color: white;
+        transition: color 0.3s ease-out;
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+      }
+
+      .education-card:hover .institution,
+      .research-card:hover .institution,
+      .project-card:hover .tech-stack {
+        color: rgba(255, 255, 255, 0.95);
       }
 
       .education-card h3 {
@@ -246,25 +298,31 @@
         margin-top: 2rem;
       }
 
-      .research-card {
-        background: white;
-        padding: 2rem;
-        border-radius: 10px;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        transition: all var(--transition-speed);
-      }
-
-      .research-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-      }
-
       .research-card h3 {
         color: var(--secondary-color);
         margin-bottom: 1rem;
       }
 
       .research-card .institution {
+        color: var(--primary-color);
+        font-weight: 500;
+        margin-bottom: 0.5rem;
+      }
+
+      /* Projects Section */
+      .projects-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+        margin-top: 2rem;
+      }
+
+      .project-card h3 {
+        color: var(--secondary-color);
+        margin-bottom: 1rem;
+      }
+
+      .project-card .tech-stack {
         color: var(--primary-color);
         font-weight: 500;
         margin-bottom: 0.5rem;
@@ -357,6 +415,7 @@
 
         .education-grid,
         .research-grid,
+        .projects-grid,
         .skills-container {
           grid-template-columns: 1fr;
         }
@@ -391,6 +450,7 @@
       <a href="#about">About</a>
       <a href="#education">Education</a>
       <a href="#research">Research</a>
+      <a href="#projects">Projects</a>
       <a href="#skills">Skills</a>
       <a href="#contact">Contact</a>
     </nav>
@@ -443,7 +503,6 @@
         <div class="education-card">
           <h3>IIT Guwahati</h3>
           <p>Minor in Computer Science and Engineering</p>
-          
         </div>
       </div>
     </section>
@@ -478,6 +537,101 @@
           <p>
             Comprehensive literature review on artificial general intelligence
             safety
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="projects">
+      <h2 class="section-title">Projects</h2>
+      <div class="projects-grid">
+        <div class="project-card">
+          <h3>Camouflage Pattern and Dominant Color Generation</h3>
+          <p class="tech-stack">
+            Govt of India (Armed Forces) | Python, OpenCV
+          </p>
+          <p>
+            Developed a desktop application to generate optimized camouflage
+            patterns from terrain images. Implemented dominant color extraction
+            and pattern blending for enhanced military stealth. Applied image
+            segmentation and texture analysis to generate effective camouflage
+            designs. Delivered a fully functional desktop app for real-time
+            pattern visualization application.
+          </p>
+        </div>
+        <div class="project-card">
+          <h3>Neural Audio Style Transfer with GANs and ODEs</h3>
+          <p class="tech-stack">Self | PyTorch, Librosa, NumPy</p>
+          <p>
+            Developed a GAN-enhanced autoencoder to morph instrument sounds
+            while preserving rhythm melody. Used Neural ODEs to enable
+            continuous latent space transformations, creating smooth
+            transitions. Improved spectrogram realism using adversarial
+            training, achieving high-fidelity waveform synthesis.
+          </p>
+        </div>
+        <div class="project-card">
+          <h3>
+            Threat Intelligence and Forecasting in the CSE Content Generation
+          </h3>
+          <p class="tech-stack">IIM Mumbai | SARIMAX, LSTM</p>
+          <p>
+            Replicated AI-driven threat intelligence and forecasting methods for
+            cybersecurity scenario generation, using models like SARIMAX and
+            LSTM to enhance threat trend prediction and response readiness.
+          </p>
+        </div>
+        <div class="project-card">
+          <h3>TSP using Simulated Annealing</h3>
+          <p class="tech-stack">IIT Guwahati | C++</p>
+          <p>
+            Tackled the Traveling Salesman Problem, a complex combinatorial
+            optimization challenge, aiming to minimize travel distance among
+            multiple cities. Explored optimization techniques and identified
+            Simulated Annealing as a suitable method due to its effectiveness in
+            finding near-optimal solutions within feasible computational limits.
+            Developed the algorithm in C++, implementing the Simulated Annealing
+            approach with custom parameter tuning for temperature and cooling
+            rate to enhance performance. Achieved a near-optimal solution with
+            minimized travel path, outperforming brute-force alternatives in
+            both speed and accuracy.
+          </p>
+        </div>
+        <div class="project-card">
+          <h3>Smart FAQ System</h3>
+          <p class="tech-stack">
+            SARC IIT Bombay | Pandas, BERT, Transformer, React, Flask
+          </p>
+          <p>
+            The tool will show the most relevant ans according to the user
+            question using Sentence-Transformer. Fine tuning the T5 model with
+            LoRA for answer generation for unknown question(where no question
+            matches with user). Creating user interface using React js.
+          </p>
+        </div>
+        <div class="project-card">
+          <h3>U-Net based Image Segmentation Model</h3>
+          <p class="tech-stack">
+            Self | NumPy, Pandas, OpenCV, Keras, TensorFlow
+          </p>
+          <p>
+            Reviewed papers on Lunar crater detection to establish a solid
+            foundation in image segmentation. Analyzed various existing image
+            segmentation models and developed a hybrid U-Net based approach.
+            Achieved a precision of 85% and a Mean IoU of 59% in model
+            evaluation.
+          </p>
+        </div>
+        <div class="project-card">
+          <h3>Voice Classification Model: Gender Prediction from Audio</h3>
+          <p class="tech-stack">Self | NumPy, Pandas, Librosa, Pickle</p>
+          <p>
+            Developed skills in signal processing and feature extraction for
+            building a robust voice classification model. Utilized Mel-frequency
+            cepstral coefficients (MFCC) to extract key audio features for
+            classification. Reviewed research papers to guide the design and
+            implementation of the model. Achieved 95% accuracy in gender
+            prediction by evaluating the model on test datasets.
           </p>
         </div>
       </div>
@@ -542,7 +696,7 @@
     </section>
 
     <footer>
-      <p>&copy; 2025 Indranil Bhadra | Designed with ❤️</p>
+      <p>© 2025 Indranil Bhadra | Designed with ❤️</p>
     </footer>
 
     <script>
@@ -584,6 +738,20 @@
           nav.classList.remove("scrolled");
         }
       });
+
+      // Add cursor position hover effect
+      document
+        .querySelectorAll(".education-card, .research-card, .project-card")
+        .forEach((card) => {
+          card.addEventListener("mousemove", (e) => {
+            const rect = card.getBoundingClientRect();
+            const x = ((e.clientX - rect.left) / rect.width) * 100;
+            const y = ((e.clientY - rect.top) / rect.height) * 100;
+
+            card.style.setProperty("--x", `${x}%`);
+            card.style.setProperty("--y", `${y}%`);
+          });
+        });
     </script>
   </body>
 </html>
